@@ -272,8 +272,8 @@ int main(int argc, char * argv[])
 			std::cout << "Loading maze binary from: " << load_path << ". \n";
 
 			//factory = std::unique_ptr<maze::MazeFactory>(new maze::BinaryLoad(load_path));
-			factory = std::unique_ptr<maze::MazeFactory>(new maze::BinaryProcessor());
-			factory->BinaryLoad(load_path);
+			factory = std::unique_ptr<maze::MazeFactory>(new maze::BinaryProcessor(nullptr, load_path));
+			//factory->BinaryLoad(load_path);
 		}
 
 		maze = factory->make_maze();
@@ -306,8 +306,8 @@ int main(int argc, char * argv[])
 			std::cout << "Saving maze to binary: " << save_path << ". \n";
 
 			//persistence_strategy = std::unique_ptr<maze::PersistenceStrategy>(new maze::BinarySave(*maze.get(),save_path));
-			persistence_strategy = std::unique_ptr<maze::MazeFactory>(new maze::BinaryProcessor());
-			persistence_strategy->BinarySave(*maze.get(), save_path);
+			persistence_strategy = std::unique_ptr<maze::MazeFactory>(new maze::BinaryProcessor(maze.get(), save_path));
+			//persistence_strategy->BinarySave(*maze.get(), save_path);
 		}
 		else if(saving_svg)
 		{

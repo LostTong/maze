@@ -11,8 +11,8 @@ namespace maze
 	{
 		public:
 			virtual std::unique_ptr<maze::Maze> make_maze() = 0;
-			virtual void BinaryLoad(std::string file_path) = 0;
-			virtual void BinarySave(maze::Maze & maze, std::string file_path) = 0;
+			//virtual void BinaryLoad(std::string file_path) = 0;
+			//virtual void BinarySave(maze::Maze & maze, std::string file_path) = 0;
 			virtual void persist_maze() = 0;
 			MazeFactory() {};
 			~MazeFactory() {};

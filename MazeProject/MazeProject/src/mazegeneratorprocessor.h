@@ -16,9 +16,6 @@ namespace maze
 			DepthFirstSearchGenerator(unsigned height_, unsigned width_, unsigned seed_):
 				height(height_), width(width_), seed(seed_) {};
 			virtual std::unique_ptr<maze::Maze> make_maze() override;
-
-			void BinaryLoad(std::string file_path) {};
-			void BinarySave(maze::Maze & maze, std::string file_path) {};
 			void persist_maze() {};
 	};
 }

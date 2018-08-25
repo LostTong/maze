@@ -25,10 +25,7 @@ namespace maze
 		public:
 			SVGSave(maze::Maze & maze, std::string file_path) : maze(&maze), file_path(file_path) {};
 			virtual void persist_maze();
-
 			std::unique_ptr<maze::Maze> make_maze(){ return nullptr; };
-			void BinaryLoad(std::string file_path) {};
-			void BinarySave(maze::Maze & maze, std::string file_path) {};
 			
 
 

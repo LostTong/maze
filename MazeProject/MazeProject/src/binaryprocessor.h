@@ -20,6 +20,11 @@ namespace maze
 			this->maze = &maze,
 			this->file_path = file_path;
 		}
+		BinaryProcessor(maze::Maze * maze, std::string file_path)
+		{
+			this->maze = maze,
+			this->file_path = file_path;
+		}
 		virtual std::unique_ptr<maze::Maze> make_maze() override;
 		virtual void persist_maze() override;
 	};
