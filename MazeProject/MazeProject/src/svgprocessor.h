@@ -20,7 +20,7 @@ namespace maze
 		maze::Maze * maze;
 		std::string file_path;
 
-		void output_pathway(maze::Pathway & pathway, unsigned offset, std::fstream & output);
+		void output_pathway(maze::Path & pathway, unsigned offset, std::fstream & output);
 
 		public:
 			SVGSave(maze::Maze & maze, std::string file_path) : maze(&maze), file_path(file_path) {};

@@ -4,7 +4,7 @@
 
 namespace maze
 {
-	Maze::Maze(unsigned height, unsigned width){
+	Maze::Maze(unsigned width, unsigned height){
 		// create maze cells
 		for(unsigned i = 0; i < height; i++){
 			// rows
@@ -23,13 +23,13 @@ namespace maze
 		this->height = height;
 	}
 
-	Cell *Maze::get_cell(unsigned x_pos, unsigned y_pos){
-		if(x_pos >= width)
+	Cell *Maze::get_cell(int x_pos, int y_pos){
+		if(x_pos < 0 || x_pos >= width)
 		{
 			return nullptr;
 		}
 
-		if(y_pos >= height)
+		if(y_pos < 0 || y_pos >= height)
 		{
 			return nullptr;
 		}

@@ -12,7 +12,6 @@
 #include "mazegeneratorprocessor.h"
 //#include "binaryload.h"
 #include "depthfirstsearchsolver.h"
-#include "breadthfirstsearchsolver.h"
 //#include "binarysave.h"
 #include "binaryprocessor.h"
 #include "svgprocessor.h"
@@ -48,7 +47,6 @@ int main(int argc, char * argv[])
 
 	std::unique_ptr<maze::Maze> maze;
 	std::unique_ptr<maze::MazeProcessor> factory;
-	std::unique_ptr<maze::SolvingStrategy> solving_strategy;
 	std::unique_ptr<maze::MazeProcessor> persistence_strategy;
 	
 	std::string program_name = argv[0];
@@ -265,7 +263,7 @@ int main(int argc, char * argv[])
 			std::cout << "Width: " << width << ". \n";
 			std::cout << "Seed: " << seed << ". \n";
 
-			factory = std::unique_ptr<maze::MazeProcessor>(new maze::DepthFirstSearchGenerator(height, width, seed));
+			//factory = std::unique_ptr<maze::MazeProcessor>(new maze::DepthFirstSearchGenerator(height, width, seed));
 		}
 		else if(loading_binary)
 		{
@@ -281,14 +279,7 @@ int main(int argc, char * argv[])
 		if(solving_depth_first)
 		{
 			std::cout << "Solving maze with depth first search.\n";
-
-			solving_strategy = std::unique_ptr<maze::SolvingStrategy>(new maze::DepthFirstSearchSolver(*maze.get()));            
-		}
-		else if(solving_breadth_first)
-		{
-			std::cout << "Solving maze with breadth first search.\n";
-
-            solving_strategy = std::unique_ptr<maze::SolvingStrategy>(new maze::BreadthFirstSearchSolver(*maze.get()));            
+          
 		}
 
 		bool solving_maze = solving_depth_first || solving_breadth_first;
@@ -296,7 +287,6 @@ int main(int argc, char * argv[])
 		if(solving_maze)
         {
         	
-			solving_strategy->solve_maze();
         	std::cout << "Solve Finish!" << std::endl;
         }
 
@@ -306,7 +296,7 @@ int main(int argc, char * argv[])
 			std::cout << "Saving maze to binary: " << save_path << ". \n";
 
 			//persistence_strategy = std::unique_ptr<maze::PersistenceStrategy>(new maze::BinarySave(*maze.get(),save_path));
-			persistence_strategy = std::unique_ptr<maze::MazeProcessor>(new maze::BinaryProcessor(maze.get(), save_path));
+			//persistence_strategy = std::unique_ptr<maze::MazeProcessor>(new maze::BinaryProcessor(maze.get(), save_path));
 			//persistence_strategy->BinarySave(*maze.get(), save_path);
 		}
 		else if(saving_svg)
@@ -319,7 +309,7 @@ int main(int argc, char * argv[])
 
 
        
-		persistence_strategy->save_maze_file();
+		//persistence_strategy->save_maze_file();
 		std::cout << "Save Finish!" << std::endl;
         
 

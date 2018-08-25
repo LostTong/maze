@@ -16,8 +16,8 @@ namespace maze
 
  		/* header */
  		unsigned offset = WALL_WIDTH * 2; /* Both sides */
-		unsigned box_width = CELL_SIZE_PIXELS * maze->get_width() + offset;
-		unsigned box_height = CELL_SIZE_PIXELS * maze->get_height() + offset;
+		unsigned box_width = CELL_SIZE_PIXELS * maze->width + offset;
+		unsigned box_height = CELL_SIZE_PIXELS * maze->height + offset;
 		output << "<svg width='" << box_width << "' ";
 		output << "height='" << box_height << "' ";
 		output << "xmlns='http://www.w3.org/2000/svg'>" << "\n";
@@ -28,13 +28,13 @@ namespace maze
 
  		/* Edges/pathways */
 
-		std::vector<maze::Pathway *> solved_pathway;
-		std::vector<maze::Pathway *> unsolved_pathway;
+		std::vector<maze::Path *> solved_pathway;
+		std::vector<maze::Path *> unsolved_pathway;
 
 		/* seperate the pathways so we can make sure the solved is on top */
-		for(maze::Pathway * pathway : *maze->get_pathways())
+		for(maze::Path * pathway : *maze->get_pathways())
 		{
-			if(pathway->is_in_solved_pathway())
+			if(pathway->is_exit_path)
 				solved_pathway.push_back(pathway);
 			else
 				unsolved_pathway.push_back(pathway);
@@ -80,15 +80,15 @@ namespace maze
 	}
 
 
-	void maze::SVGSave::output_pathway(maze::Pathway & pathway, unsigned offset, std::fstream & output)
+	void maze::SVGSave::output_pathway(maze::Path & pathway, unsigned offset, std::fstream & output)
 	{
 		unsigned x;
 		unsigned y;
 		unsigned current_path_width;
 		unsigned current_path_height;
 
-		maze::Cell * first_cell = pathway.get_first_cell();
-		maze::Cell * second_cell = pathway.get_second_cell();
+		maze::Cell * first_cell = pathway.start_cell;
+		maze::Cell * second_cell = pathway.end_cell;
 
 		unsigned x1 = first_cell->get_x_position();
 		unsigned x2 = second_cell->get_x_position();
@@ -137,7 +137,7 @@ namespace maze
  			}
 
  			output << "<rect style='fill:";
- 			if(pathway.is_in_solved_pathway())
+ 			if(pathway.is_exit_path)
  				output << SOLVED_PATHWAY_COLOR;
  			else
  				output << PATHWAY_COLOR;

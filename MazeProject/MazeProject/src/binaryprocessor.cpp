@@ -72,20 +72,20 @@ namespace maze
 			/* Test data */
 			std::string message = "";
 
-			if (x1 >= maze->get_width())
+			if (x1 >= maze->width)
 			{
 				message = "Edge out of bounds: x1: " + std::to_string(x1);
 
 			}
-			else if (x2 >= maze->get_width())
+			else if (x2 >= maze->width)
 			{
 				message = "\nEdge out of bounds: x2: " + std::to_string(x2);
 			}
-			else if (y1 >= maze->get_height())
+			else if (y1 >= maze->height)
 			{
 				message = "\nEdge out of bounds: y1: " + std::to_string(y1);
 			}
-			else if (y2 >= maze->get_height())
+			else if (y2 >= maze->height)
 			{
 				message = "\nEdge out of bounds: y2: " + std::to_string(y2);
 			}
@@ -95,7 +95,7 @@ namespace maze
 
 
 			/* Add pathway to maze */
-			maze->add_pathway(maze->get_cell(x1, y1), maze->get_cell(x2, y2));
+			maze->add_path(maze->get_cell(x1, y1), maze->get_cell(x2, y2));
 			readEdges++;
 		}
 		binaryFile.close();
@@ -122,12 +122,12 @@ namespace maze
 			std::cout << "Could not open file" << std::endl;
 		}
 
-		std::vector<maze::Pathway *> * pathways = maze->get_pathways();
+		std::vector<maze::Path *> * pathways = maze->get_pathways();
 
 		/* Write headers */
 		const unsigned number_edges = pathways->size();
-		const unsigned height = maze->get_height();
-		const unsigned width = maze->get_width();
+		const unsigned height = maze->width;
+		const unsigned width = maze->height;
 		output.write((char*)&width, sizeof(width));
 		output.write((char*)&height, sizeof(height));
 		output.write((char*)&number_edges, sizeof(number_edges));
@@ -138,12 +138,12 @@ namespace maze
 
 
 		/* Edges/pathways */
-		for (maze::Pathway * pathway : *pathways)
+		for (maze::Path * pathway : *pathways)
 		{
-			const unsigned x1 = pathway->get_first_cell()->get_x_position();
-			const unsigned x2 = pathway->get_second_cell()->get_x_position();
-			const unsigned y1 = pathway->get_first_cell()->get_y_position();
-			const unsigned y2 = pathway->get_second_cell()->get_y_position();
+			const unsigned x1 = pathway->start_cell->get_x_position();
+			const unsigned x2 = pathway->end_cell->get_x_position();
+			const unsigned y1 = pathway->start_cell->get_y_position();
+			const unsigned y2 = pathway->end_cell->get_y_position();
 
 			/* x1 */
 			output.write((char*)&x1, sizeof(x1));

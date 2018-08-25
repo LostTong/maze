@@ -15,9 +15,9 @@ maze::DepthFirstSearchSolver::DepthFirstSearchSolver(maze::Maze & maze)
 *****************************************************************************/
 void maze::DepthFirstSearchSolver::solve_maze()
 {
-    std::stack<maze::Pathway *> pathway_stack;
+    std::stack<maze::Path *> pathway_stack;
     std::stack<maze::Cell *> cell_stack;
-	std::unordered_set<maze::Pathway *> pathway_set;
+	std::unordered_set<maze::Path *> pathway_set;
 
     maze::Cell * current_cell = nullptr;
 
@@ -28,7 +28,7 @@ void maze::DepthFirstSearchSolver::solve_maze()
 	maze::Cell * last_cell = maze->get_exit_cell();
 
     if(first_cell == nullptr || last_cell == nullptr)
-        throw maze::CannotSolveMaze("not initialised");
+        return;
 
     cell_stack.push(first_cell);
 
@@ -36,10 +36,10 @@ void maze::DepthFirstSearchSolver::solve_maze()
     {
         current_cell = cell_stack.top();
         if(current_cell == nullptr)
-            throw maze::CannotSolveMaze("could not reach last cell");
+            return;
 
         /* Get next unvisited pathway */
-        for(maze::Pathway * pathway_ptr : *current_cell->get_pathways())
+        for(maze::Path * pathway_ptr : *current_cell->get_pathways())
         {
             found_pathway = false;
 
@@ -50,7 +50,7 @@ void maze::DepthFirstSearchSolver::solve_maze()
                 pathway_stack.push(pathway_ptr);
 
                 /* add adjacent cell to cell stack */
-                cell_stack.push(pathway_ptr->get_other_cell(current_cell));
+                cell_stack.push(pathway_ptr->get_next_cell(current_cell));
 
                 found_pathway = true;
 

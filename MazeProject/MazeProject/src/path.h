@@ -32,7 +32,7 @@ namespace std
 	template <>
 	struct hash<maze::Path *>
 	{
-		std::size_t operator()(maze::Path * const & pathway){
+		std::size_t operator()(maze::Path * const & pathway) const noexcept{
 			return std::hash<std::size_t>()((std::size_t)pathway);
 		}
 	};

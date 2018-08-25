@@ -23,17 +23,16 @@ namespace maze
 	public:
 		unsigned x_pos, y_pos;
 		std::vector<Path *> paths;
+		Cell *prev_cell;
 	};
 }
 /* hash */
-namespace std
+template <>
+struct std::hash<maze::Cell *>
 {
-	template <>
-	struct hash< maze::Cell * >
+	std::size_t operator()(maze::Cell * const & cell) const noexcept
 	{
-		std::size_t operator()(maze::Cell *const &cell){
-			return std::hash<std::size_t>()((std::size_t)cell);
-		}
-	};
-}
+		return std::hash<std::size_t>()((std::size_t)cell);
+	}
+};
 
