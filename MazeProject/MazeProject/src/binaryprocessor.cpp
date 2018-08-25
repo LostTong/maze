@@ -29,13 +29,9 @@ namespace maze
 		binaryFile.read((char*)&numEdges, sizeof(numEdges));
 
 		/* Test header info */
-		if (width == 0)
+		if (width == 0 || height == 0)
 		{
-			OuputLog("Width cannot be less than 1");
-		}
-		if (height == 0)
-		{
-			OuputLog("Height cannot be less than 1");
+			OuputLog("Width or higth is error.");
 		}
 
 		/* Check for overflow */
@@ -104,7 +100,7 @@ namespace maze
 			OuputLog("Missing edges");
 		else if (readEdges > numEdges)
 		{
-			std::cout << "Num edges read: " << readEdges << "\n";
+			OuputLog("Num edges read: " + readEdges );
 			OuputLog("Too many edges");
 		}
 
@@ -113,13 +109,11 @@ namespace maze
 
 	void maze::BinaryProcessor::save_maze_file()
 	{
-		std::fstream output(file_path, std::fstream::out | std::fstream::binary | std::fstream::trunc);
+		std::fstream output_file(file_path, std::fstream::out | std::fstream::binary | std::fstream::trunc);
 
-		if (!output.is_open())
+		if (!output_file.is_open())
 		{
-			/* Error opening file */
-			//throw maze::CannotPersistMaze("Could not open file");
-			std::cout << "Could not open file" << std::endl;
+			OuputLog("Could not open file");
 		}
 
 		std::vector<maze::Path *> * pathways = maze->get_pathways();
@@ -128,9 +122,9 @@ namespace maze
 		const unsigned number_edges = pathways->size();
 		const unsigned height = maze->width;
 		const unsigned width = maze->height;
-		output.write((char*)&width, sizeof(width));
-		output.write((char*)&height, sizeof(height));
-		output.write((char*)&number_edges, sizeof(number_edges));
+		output_file.write((char*)&width, sizeof(width));
+		output_file.write((char*)&height, sizeof(height));
+		output_file.write((char*)&number_edges, sizeof(number_edges));
 
 
 		/*std::cout << "Width: " << width << ", height: " << height << ", number_edges: ";
@@ -141,19 +135,19 @@ namespace maze
 		for (maze::Path * pathway : *pathways)
 		{
 			const unsigned x1 = pathway->start_cell->get_x_position();
-			const unsigned x2 = pathway->end_cell->get_x_position();
 			const unsigned y1 = pathway->start_cell->get_y_position();
+			const unsigned x2 = pathway->end_cell->get_x_position();
 			const unsigned y2 = pathway->end_cell->get_y_position();
 
 			/* x1 */
-			output.write((char*)&x1, sizeof(x1));
+			output_file.write((char*)&x1, sizeof(x1));
 			/* y1 */
-			output.write((char*)&y1, sizeof(y1));
+			output_file.write((char*)&y1, sizeof(y1));
 			/* x2 */
-			output.write((char*)&x2, sizeof(x2));
+			output_file.write((char*)&x2, sizeof(x2));
 			/* y2 */
-			output.write((char*)&y2, sizeof(y2));
+			output_file.write((char*)&y2, sizeof(y2));
 		}
-		output.close();
+		output_file.close();
 	}
 }
