@@ -13,7 +13,7 @@ namespace maze
 		if (!binaryFile.is_open())
 		{
 			/* Error opening file */
-			throw maze::CannotGenerateMaze("Could not open file");
+			OuputLog("Could not open file");
 		}
 
 		/* File length */
@@ -31,18 +31,18 @@ namespace maze
 		/* Test header info */
 		if (width == 0)
 		{
-			throw maze::CannotGenerateMaze("Width cannot be less than 1");
+			OuputLog("Width cannot be less than 1");
 		}
 		if (height == 0)
 		{
-			throw maze::CannotGenerateMaze("Height cannot be less than 1");
+			OuputLog("Height cannot be less than 1");
 		}
 
 		/* Check for overflow */
 		unsigned check = width * height;
 		if (check / height != width)
 		{
-			throw maze::CannotGenerateMaze("Width and/or height too large.");
+			OuputLog("Width and/or height too large.");
 		}
 
 
@@ -91,7 +91,7 @@ namespace maze
 			}
 
 			if (message != "")
-				throw maze::CannotGenerateMaze(message);
+				OuputLog(message.c_str());
 
 
 			/* Add pathway to maze */
@@ -101,11 +101,11 @@ namespace maze
 		binaryFile.close();
 
 		if (readEdges < numEdges)
-			throw maze::CannotGenerateMaze("Missing edges");
+			OuputLog("Missing edges");
 		else if (readEdges > numEdges)
 		{
 			std::cout << "Num edges read: " << readEdges << "\n";
-			throw maze::CannotGenerateMaze("Too many edges");
+			OuputLog("Too many edges");
 		}
 
 		return maze;
