@@ -2,14 +2,14 @@
 
 namespace maze
 {
-	maze::Cell::Cell(unsigned y_position, unsigned x_position)
+	Cell::Cell(unsigned x_pos, unsigned y_pos)
 	{
-		this->x_position = x_position;
-		this->y_position = y_position;
+		this->x_pos = x_pos;
+		this->y_pos = y_pos;
 	}
 
-	void maze::Cell::add_pathway(maze::Pathway * pathway)
+	void Cell::add_path(Path *pathway)
 	{
-		pathways.push_back(pathway);
+		paths.push_back(pathway);
 	}
 }

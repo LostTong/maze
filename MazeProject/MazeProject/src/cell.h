@@ -1,41 +1,37 @@
 #pragma once
 
-#include "pathway.h"
+#include "path.h"
 #include <vector>
-#include <functional>
 
 namespace maze
 {
-	class Pathway;
+	class Path;
 
 	class Cell
 	{
-		unsigned x_position, y_position;
-		std::vector<maze::Pathway *> pathways;
-
 		public:
 			Cell(unsigned y_position, unsigned x_position);
-			Cell(): x_position(0), y_position(0) {};
 			~Cell() {};
-			unsigned get_x_position() { return x_position; };
-			unsigned get_y_position() { return y_position; }
-			void add_pathway(maze::Pathway * pathway);
-			std::vector<maze::Pathway *> * get_pathways() 
-				{ return &pathways; };
-			bool has_pathway() { return !pathways.empty(); };
+
+			inline unsigned get_x_position() { return x_pos; };
+			inline unsigned get_y_position() { return y_pos; }
+			inline std::vector<Path *> * get_pathways() { return &paths;};
+			inline bool has_pathway() { return !paths.empty();};
+			void add_path(Path *pathway);
+
+
+	public:
+		unsigned x_pos, y_pos;
+		std::vector<Path *> paths;
 	};
 }
-
-/* Adapted from examples by Nijansen on Stack Overflow http://stackoverflow.com/a/18098536 (accessed 9/9/14) 
-   and by Ken Bloom http://stackoverflow.com/a/2634715 (accessed 9/9/14) */
-
+/* hash */
 namespace std
 {
 	template <>
 	struct hash< maze::Cell * >
 	{
-		std::size_t operator()(maze::Cell * const & cell) const noexcept
-		{
+		std::size_t operator()(maze::Cell *const &cell){
 			return std::hash<std::size_t>()((std::size_t)cell);
 		}
 	};

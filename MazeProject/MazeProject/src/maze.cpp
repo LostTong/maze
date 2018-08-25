@@ -1,89 +1,72 @@
 #include "maze.h"
 
+#include <iostream>
+
 namespace maze
 {
-	/* Create an empty maze - allocate space for cells etc */
-	maze::Maze::Maze(unsigned height, unsigned width)
-	{
+	Maze::Maze(unsigned height, unsigned width){
+		// create maze cells
+		for(unsigned i = 0; i < height; i++){
+			// rows
+			std::vector<maze::Cell *> cur_row;
 
-		/* rows of vectors of cells */
-		for(unsigned i = 0; i < height; i++)
-		{
-			std::vector<maze::Cell *> current_row;
-
-			/* There will be <width> cells initialised */
-			for(unsigned j = 0; j < width; j++)
+			// columns
+			for(int j = 0; j < width; j++)
 			{
-				Cell * new_c = new Cell(i, j);
-				current_row.push_back(new_c);
+				Cell *cell = new Cell(i, j);
+				cur_row.push_back(cell);
 			}
-
-
-			cells.push_back(current_row);
+			cells.push_back(cur_row);
 		}
 
 		this->width = width;
 		this->height = height;
-
 	}
 
-	maze::Cell * maze::Maze::get_cell(unsigned x_position, unsigned y_position)
-	{
-		if(x_position >= width)
+	Cell *Maze::get_cell(unsigned x_pos, unsigned y_pos){
+		if(x_pos >= width)
 		{
 			return nullptr;
 		}
 
-		if(y_position >= height)
+		if(y_pos >= height)
 		{
 			return nullptr;
 		}
 
-		return cells[y_position][x_position];
+		return cells[x_pos][y_pos];
 	}
 
-	void maze::Maze::add_pathway(maze::Cell * cell1, maze::Cell * cell2)
-	{
-		if(cell1 == nullptr || cell2 == nullptr)
-			throw maze::MazeError("Cannot add pathway - one or both cells are null");
+	void Maze::add_path(Cell *start_cell, Cell *end_cell){
+		if (start_cell == nullptr || end_cell == nullptr) {
+			std::cerr << "Maze add path cells invalid." << std::endl;
+			return;
+		}
 
-		maze::Pathway * pathway =  new Pathway(cell1, cell2);
-		pathways.push_back(pathway);
-		cell1->add_pathway(pathways[pathways.size() - 1]);
-		cell2->add_pathway(pathways[pathways.size() - 1]);
+		Path *path =  new Path(start_cell, end_cell);
+		// cell: add path
+		start_cell->add_path(path);
+		end_cell->add_path(path);
+		// paths: add path
+		paths.push_back(path);
 	}
 
-	void maze::Maze::add_pathway(maze::Pathway * pathway)
-	{
-		pathways.push_back(pathway);
+	Maze::~Maze(){
 
-		/* Make sure the cells have a pointer to this */
-		pathway->get_first_cell()->add_pathway(pathway);
-		pathway->get_second_cell()->add_pathway(pathway);
-
-
-	}
-
-	Maze::~Maze()
-	{
-
-		/* rows of vectors of cells */
-		for(unsigned i = 0; i < height; i++)
-		{
-			std::vector<maze::Cell *> * current_row = &cells[i];
-
-			/* There will be <width> cells initialised */
+		// delete cells
+		for(unsigned i = 0; i < height; i++){
+			// row
+			std::vector<maze::Cell *> current_row = cells[i];
+			// column
 			for(unsigned j = 0; j < width; j++)
 			{
-				delete (*current_row)[j];
+				delete current_row[j];
 			}
 		}
 
-		/* Pathways */
-
-		for(Pathway * pathway_ptr : pathways)
-		{
-			delete pathway_ptr;
+		// delete paths
+		for(unsigned i = 0; i < paths.size(); i++){
+			delete paths[i];
 		}
 	}
 

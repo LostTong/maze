@@ -75,7 +75,7 @@ void maze::DepthFirstSearchSolver::solve_maze()
     /* Now go through the pathways in our solved stack and mark each one */
     while(pathway_stack.size() > 0)
     {
-        pathway_stack.top()->set_solved_pathway();
+        pathway_stack.top()->is_exit_path = true;
         pathway_stack.pop();
     }
 }
