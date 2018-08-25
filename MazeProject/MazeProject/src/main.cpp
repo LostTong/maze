@@ -10,11 +10,12 @@
 
 #include "maze.h"
 #include "depthfirstsearchgenerator.h"
-#include "binaryload.h"
+//#include "binaryload.h"
 #include "depthfirstsearchsolver.h"
 #include "breadthfirstsearchsolver.h"
-#include "binarysave.h"
-#include "svgsave.h"
+//#include "binarysave.h"
+#include "binaryprocessor.h"
+#include "svgprocessor.h"
 
 const std::string GENERATE_RECURSIVE_FLAG = "--gr";
 
@@ -48,7 +49,7 @@ int main(int argc, char * argv[])
 	std::unique_ptr<maze::Maze> maze;
 	std::unique_ptr<maze::MazeFactory> factory;
 	std::unique_ptr<maze::SolvingStrategy> solving_strategy;
-	std::unique_ptr<maze::PersistenceStrategy> persistence_strategy;
+	std::unique_ptr<maze::MazeFactory> persistence_strategy;
 	
 	std::string program_name = argv[0];
 	
@@ -270,7 +271,9 @@ int main(int argc, char * argv[])
 		{
 			std::cout << "Loading maze binary from: " << load_path << ". \n";
 
-			factory = std::unique_ptr<maze::MazeFactory>(new maze::BinaryLoad(load_path));
+			//factory = std::unique_ptr<maze::MazeFactory>(new maze::BinaryLoad(load_path));
+			factory = std::unique_ptr<maze::MazeFactory>(new maze::BinaryProcessor());
+			factory->BinaryLoad(load_path);
 		}
 
 		maze = factory->make_maze();
@@ -302,13 +305,16 @@ int main(int argc, char * argv[])
 		{
 			std::cout << "Saving maze to binary: " << save_path << ". \n";
 
-			persistence_strategy = std::unique_ptr<maze::PersistenceStrategy>(new maze::BinarySave(*maze.get(),save_path));
+			//persistence_strategy = std::unique_ptr<maze::PersistenceStrategy>(new maze::BinarySave(*maze.get(),save_path));
+			persistence_strategy = std::unique_ptr<maze::MazeFactory>(new maze::BinaryProcessor());
+			persistence_strategy->BinarySave(*maze.get(), save_path);
 		}
 		else if(saving_svg)
 		{
 			std::cout << "Saving maze to SVG: " << save_path << ". \n";
 
-			persistence_strategy = std::unique_ptr<maze::PersistenceStrategy>(new maze::SVGSave(*maze.get(),save_path));
+			//persistence_strategy = std::unique_ptr<maze::PersistenceStrategy>(new maze::SVGSave(*maze.get(),save_path));
+			persistence_strategy = std::unique_ptr<maze::MazeFactory>(new maze::SVGSave(*maze.get(), save_path));
 		}
 
 

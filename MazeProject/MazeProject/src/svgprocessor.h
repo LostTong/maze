@@ -1,7 +1,8 @@
 #pragma once
 
 #include "maze.h"
-#include "persistencestrategy.h"
+//#include "persistencestrategy.h"
+#include "mazefactory.h"
 #include <fstream>
 #include <string>
 #include <memory>
@@ -14,7 +15,7 @@
 
 namespace maze
 {
-	class SVGSave : public PersistenceStrategy
+	class SVGSave : public MazeFactory
 	{
 		maze::Maze * maze;
 		std::string file_path;
@@ -24,6 +25,11 @@ namespace maze
 		public:
 			SVGSave(maze::Maze & maze, std::string file_path) : maze(&maze), file_path(file_path) {};
 			virtual void persist_maze();
+
+			std::unique_ptr<maze::Maze> make_maze(){ return nullptr; };
+			void BinaryLoad(std::string file_path) {};
+			void BinarySave(maze::Maze & maze, std::string file_path) {};
+			
 
 
 			const static unsigned int WALL_WIDTH = (unsigned)((double) WALL_SIZE_FACTOR * CELL_SIZE_PIXELS);

@@ -1,4 +1,4 @@
-#include "svgsave.h"
+#include "svgprocessor.h"
 
 namespace maze
 {
@@ -10,7 +10,8 @@ namespace maze
 		if(!output.is_open())
 		{
 			/* Error opening file */
-			throw maze::CannotPersistMaze("Could not open file");
+			//throw maze::CannotPersistMaze("Could not open file");
+			std::cout << "Could not open file" << std::endl;
 		}
 
  		/* header */
