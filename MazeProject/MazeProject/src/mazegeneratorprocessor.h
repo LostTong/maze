@@ -1,21 +1,21 @@
 #pragma once
 
 #include "maze.h"
-#include "mazefactory.h"
+#include "mazeprocessor.h"
 #include <string>
 #include <stack>
 #include <random>
 
 namespace maze
 {
-	class DepthFirstSearchGenerator : public MazeFactory
+	class DepthFirstSearchGenerator : public MazeProcessor
 	{
 		unsigned height, width, seed;
 
 		public:
 			DepthFirstSearchGenerator(unsigned height_, unsigned width_, unsigned seed_):
 				height(height_), width(width_), seed(seed_) {};
-			virtual std::unique_ptr<maze::Maze> make_maze() override;
-			void persist_maze() {};
+			virtual std::unique_ptr<maze::Maze> generate_maze() override;
+			void save_maze_file() {};
 	};
 }

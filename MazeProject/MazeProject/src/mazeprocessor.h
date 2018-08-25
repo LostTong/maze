@@ -8,13 +8,13 @@
 
 namespace maze
 {
-	class MazeFactory
+	class MazeProcessor
 	{
 		public:
-			virtual std::unique_ptr<maze::Maze> make_maze() = 0;
-			virtual void persist_maze() = 0;
-			MazeFactory() {};
-			~MazeFactory() {};
+			virtual std::unique_ptr<maze::Maze> generate_maze() = 0;
+			virtual void save_maze_file() = 0;
+			MazeProcessor() {};
+			~MazeProcessor() {};
 
 			void OuputLog(const char * tip_string)
 			{

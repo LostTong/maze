@@ -2,7 +2,7 @@
 
 #include "maze.h"
 //#include "persistencestrategy.h"
-#include "mazefactory.h"
+#include "mazeprocessor.h"
 #include <fstream>
 #include <string>
 #include <memory>
@@ -15,7 +15,7 @@
 
 namespace maze
 {
-	class SVGSave : public MazeFactory
+	class SVGSave : public MazeProcessor
 	{
 		maze::Maze * maze;
 		std::string file_path;
@@ -24,8 +24,8 @@ namespace maze
 
 		public:
 			SVGSave(maze::Maze & maze, std::string file_path) : maze(&maze), file_path(file_path) {};
-			virtual void persist_maze();
-			std::unique_ptr<maze::Maze> make_maze(){ return nullptr; };
+			virtual void save_maze_file();
+			std::unique_ptr<maze::Maze> generate_maze(){ return nullptr; };
 			
 
 

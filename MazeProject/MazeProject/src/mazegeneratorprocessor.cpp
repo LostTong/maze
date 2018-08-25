@@ -5,7 +5,7 @@ namespace maze
 {
     /* Generate a maze using a depthfirst search with recursive backtracking */
     
-	std::unique_ptr<maze::Maze> maze::DepthFirstSearchGenerator::make_maze()
+	std::unique_ptr<maze::Maze> maze::DepthFirstSearchGenerator::generate_maze()
 	{
 		/*  Algorithm: https://en.wikipedia.org/wiki/
         Maze_generation_algorithm#Recursive_backtracker 

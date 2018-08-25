@@ -3,7 +3,7 @@
 namespace maze
 {
 	/* Persisit maze to a SVG file. */
-	void maze::SVGSave::persist_maze()
+	void maze::SVGSave::save_maze_file()
 	{
 		std::fstream output(file_path, std::fstream::out | std::fstream::trunc);
 

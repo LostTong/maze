@@ -3,7 +3,7 @@
 namespace maze
 {
 	/* Generates a maze using a binary file */
-	std::unique_ptr<maze::Maze> maze::BinaryProcessor::make_maze()
+	std::unique_ptr<maze::Maze> maze::BinaryProcessor::generate_maze()
 	{
 		std::fstream binaryFile(file_path, std::fstream::in | std::fstream::binary);
 
@@ -111,7 +111,7 @@ namespace maze
 		return maze;
 	}
 
-	void maze::BinaryProcessor::persist_maze()
+	void maze::BinaryProcessor::save_maze_file()
 	{
 		std::fstream output(file_path, std::fstream::out | std::fstream::binary | std::fstream::trunc);
 
