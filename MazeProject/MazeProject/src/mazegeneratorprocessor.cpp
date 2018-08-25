@@ -1,4 +1,4 @@
-#include "depthfirstsearchgenerator.h"
+#include "mazegeneratorprocessor.h"
 /*#include <iostream>*/
 
 namespace maze

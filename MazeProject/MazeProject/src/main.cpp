@@ -9,7 +9,7 @@
 
 
 #include "maze.h"
-#include "depthfirstsearchgenerator.h"
+#include "mazegeneratorprocessor.h"
 //#include "binaryload.h"
 #include "depthfirstsearchsolver.h"
 #include "breadthfirstsearchsolver.h"
