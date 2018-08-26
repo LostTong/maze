@@ -14,7 +14,7 @@
 #include "depthfirstsearchsolver.h"
 //#include "binarysave.h"
 #include "binaryprocessor.h"
-#include "svgprocessor.h"
+#include "svg_save.h"
 #include "args_parser.h"
 #include "maze_generator.h"
 
@@ -39,13 +39,11 @@ int main(int argc, char * argv[])
 		return 0;
 	}
 	
-	std::unique_ptr<maze::Maze> maze;
+	maze::Maze *maze = nullptr;
 	std::unique_ptr<maze::MazeGenerator> generator;
-	//std::unique_ptr<maze::MazeProcessor> persistence_strategy;
+	std::unique_ptr<maze::SVGSave> svg_save;
 
 	try{
-		//maze = factory->generate_maze();
-
 		// generate maze
 		if(parser.generate_maze_enable == true)
 		{
@@ -56,6 +54,7 @@ int main(int argc, char * argv[])
 
 			generator = std::unique_ptr<maze::MazeGenerator>(new maze::MazeGenerator(parser.generate_maze_seed, parser.generate_maze_width, parser.generate_maze_height));
 			generator->generate();
+			maze = generator->gen_maze;
 		}
 		// load binary file
 		if(parser.load_binary_file != "")
@@ -74,10 +73,11 @@ int main(int argc, char * argv[])
 			//persistence_strategy->BinarySave(*maze.get(), save_path);
 		}
 		// save svg file
-		else if(parser.save_svg_file != "")
+		if(parser.save_svg_file != "")
 		{
-			std::cout << "Saving SVG Fiel: " << parser.save_svg_file << ". \n";
-
+			std::cout << "Saving SVG File: " << parser.save_svg_file << ". \n";
+			svg_save = std::unique_ptr<maze::SVGSave>(new maze::SVGSave(*maze, parser.save_svg_file));
+			svg_save->save_svg_file();
 			//persistence_strategy = std::unique_ptr<maze::PersistenceStrategy>(new maze::SVGSave(*maze.get(),save_path));
 			//persistence_strategy = std::unique_ptr<maze::MazeProcessor>(new maze::SVGSave(*maze.get(), save_path));
 		}

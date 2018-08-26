@@ -15,8 +15,8 @@ namespace maze
 
 			inline unsigned get_x_position() { return x_pos; };
 			inline unsigned get_y_position() { return y_pos; }
-			inline std::vector<Path *> * get_pathways() { return &paths;};
-			inline bool has_pathway() { return !paths.empty();};
+			inline std::vector<Path *> * get_paths() { return &paths;};
+			inline bool has_path() { return !paths.empty();};
 			void add_path(Path *pathway);
 
 

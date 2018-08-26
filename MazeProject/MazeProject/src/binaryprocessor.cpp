@@ -118,7 +118,7 @@ namespace maze
 			return;
 		}
 
-		std::vector<maze::Path *> * pathways = maze->get_pathways();
+		std::vector<maze::Path *> * pathways = maze->get_paths();
 
 		/* Write headers */
 		const unsigned height = maze->width;

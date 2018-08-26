@@ -39,7 +39,7 @@ void maze::DepthFirstSearchSolver::solve_maze()
             return;
 
         /* Get next unvisited pathway */
-        for(maze::Path * pathway_ptr : *current_cell->get_pathways())
+        for(maze::Path * pathway_ptr : *current_cell->get_paths())
         {
             found_pathway = false;
 

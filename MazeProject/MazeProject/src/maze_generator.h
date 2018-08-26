@@ -18,6 +18,7 @@ namespace maze
 		public:
 			MazeGenerator(unsigned seed, unsigned width, unsigned height): seed(seed), width(width), height(height){};
 			void generate();
+			void get_paths(std::mt19937 &mt);
 			bool depth_search(std::mt19937 &mt, std::vector< std::vector<bool> > &visited_cells);
 			void build_solve_path(Maze *maze);
 
@@ -31,5 +32,6 @@ namespace maze
 			std::vector<Path *> solve_paths;
 			std::vector< std::vector<bool> > visited_cells;
 			Maze *gen_maze;
+			const std::string outpath_file = "output_path.txt";
 	};
 }
