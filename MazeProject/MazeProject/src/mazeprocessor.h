@@ -11,8 +11,8 @@ namespace maze
 	class MazeProcessor
 	{
 		public:
-			virtual std::unique_ptr<maze::Maze> generate_maze() = 0;
-			virtual void save_maze_file() = 0;
+			//virtual std::unique_ptr<maze::Maze> generate_maze() = 0;
+			//virtual void save_maze_file() = 0;
 			MazeProcessor() {};
 			~MazeProcessor() {};
 

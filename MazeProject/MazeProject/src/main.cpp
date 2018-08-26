@@ -41,6 +41,7 @@ int main(int argc, char * argv[])
 	
 	std::unique_ptr<maze::Maze> maze;
 	std::unique_ptr<maze::MazeGenerator> generator;
+	//std::unique_ptr<maze::BinaryProcessor> binary_savor;
 	//std::unique_ptr<maze::MazeProcessor> persistence_strategy;
 
 	try{
@@ -61,8 +62,8 @@ int main(int argc, char * argv[])
 		if(parser.load_binary_file != "")
 		{
 			std::cout << "Loading maze binary from: " << parser.load_binary_file << ". \n";
-			generator = std::unique_ptr<maze::MazeGenerator>(new maze::MazeGenerator(parser.generate_maze_seed, parser.generate_maze_width, parser.generate_maze_height));
-			generator->generate();
+			generator = std::unique_ptr<maze::MazeGenerator>(new maze::MazeGenerator());
+			generator->BinaryLoad(parser.load_binary_file);
 		}
 		// save binary file
 		if(parser.save_binary_file != "")
@@ -72,6 +73,7 @@ int main(int argc, char * argv[])
 			//persistence_strategy = std::unique_ptr<maze::PersistenceStrategy>(new maze::BinarySave(*maze.get(),save_path));
 			//persistence_strategy = std::unique_ptr<maze::MazeProcessor>(new maze::BinaryProcessor(maze.get(), save_path));
 			//persistence_strategy->BinarySave(*maze.get(), save_path);
+			generator->BinarySave(parser.save_binary_file);
 		}
 		// save svg file
 		else if(parser.save_svg_file != "")
