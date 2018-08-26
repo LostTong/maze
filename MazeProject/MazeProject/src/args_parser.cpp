@@ -105,7 +105,7 @@ namespace maze {
 			return false;
 		}
 		// save binary without generate maze
-		if (save_binary_file != "" && generate_maze_enable == false) {
+		if (save_binary_file != "" && (load_binary_file == "" && generate_maze_enable == false)) {
 			std::cerr << "Save Binary File Without Load Binary or Geneate Maze." << std::endl;
 			return false;
 		}
