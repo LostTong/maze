@@ -27,12 +27,15 @@ namespace maze
 	};
 }
 /* hash */
+namespace std{
 template <>
-struct std::hash<maze::Cell *>
+struct hash<maze::Cell *>
 {
 	std::size_t operator()(maze::Cell * const & cell) const noexcept
 	{
 		return std::hash<std::size_t>()((std::size_t)cell);
 	}
 };
+} 
+
 

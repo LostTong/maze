@@ -18,5 +18,6 @@ namespace maze
 		}
 		virtual std::unique_ptr<maze::Maze> generate_maze() override;
 		virtual void save_maze_file() override;
+		std::string determin_edge_out_of_bound(unsigned x1, unsigned y1, unsigned x2, unsigned y2);
 	};
 }

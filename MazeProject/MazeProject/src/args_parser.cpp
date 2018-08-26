@@ -84,7 +84,7 @@ namespace maze {
 							generate_maze_height = (unsigned)std::stol(argv[i + 3]);
 							i += 3;
 						}
-						catch (const std::invalid_argument) {
+						catch (const char* msg) {
 							std::cerr << "Save Binary File: parameters invalid." << std::endl;
 							return false;
 						}
