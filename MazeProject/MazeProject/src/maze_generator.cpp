@@ -14,6 +14,13 @@ namespace maze
 		std::mt19937 mt(seed);
 
 		gen_maze = new Maze(width, height);
+		/*
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				if i > 09
+			}
+		}*/
+
 		visited_cells = std::vector< std::vector<bool> > (width + 1, std::vector<bool>(height + 1, false));
 		unvisited_cells.push(gen_maze->get_entry_cell());
 		bool is_solve = depth_search(mt, visited_cells);
@@ -68,7 +75,6 @@ namespace maze
 			cell_vec.erase(cell_vec.begin() + idx);
 		}
 		return depth_search( mt, visited_cells);
-
 	}
 
 	void MazeGenerator::build_solve_path(Maze *maze) {

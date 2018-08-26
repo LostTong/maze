@@ -11,18 +11,13 @@ namespace maze
 			std::vector<maze::Cell *> cur_row;
 
 			// columns
-<<<<<<< HEAD
 			for(int j = 0; j < h; j++)
-=======
-			for(unsigned j = 0; j < width; j++)
->>>>>>> 83f6282606333796d8d8397c197e2d52a7cf931d
 			{
 				Cell *cell = new Cell(i, j);
 				cur_row.push_back(cell);
 			}
 			cells.push_back(cur_row);
 		}
-
 		width = w;
 		height = h;
 	}
