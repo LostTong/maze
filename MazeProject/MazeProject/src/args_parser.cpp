@@ -80,8 +80,8 @@ namespace maze {
 						try {
 							generate_maze_enable = true;
 							generate_maze_seed = (unsigned)std::stol(next_arg);
-							generate_maze_width = (unsigned)std::stol(argv[i + 1]);
-							generate_maze_height = (unsigned)std::stol(argv[i + 2]);
+							generate_maze_width = (unsigned)std::stol(argv[i + 2]);
+							generate_maze_height = (unsigned)std::stol(argv[i + 3]);
 							i += 3;
 						}
 						catch (const std::invalid_argument) {

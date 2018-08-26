@@ -9,9 +9,8 @@ namespace maze
 
 		if(!output.is_open())
 		{
-			/* Error opening file */
-			//throw maze::CannotPersistMaze("Could not open file");
 			std::cout << "Could not open file" << std::endl;
+			return;
 		}
 
  		/* header */
@@ -80,7 +79,7 @@ namespace maze
 	}
 
 
-	void maze::SVGSave::output_pathway(maze::Path & pathway, unsigned offset, std::fstream & output)
+	void maze::SVGSave::output_pathway(maze::Path &pathway, unsigned offset, std::fstream & output)
 	{
 		unsigned x;
 		unsigned y;

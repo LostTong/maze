@@ -16,6 +16,7 @@
 #include "binaryprocessor.h"
 #include "svgprocessor.h"
 #include "args_parser.h"
+#include "maze_generator.h"
 
 const std::string GENERATE_RECURSIVE_FLAG = "--gr";
 
@@ -39,7 +40,7 @@ int main(int argc, char * argv[])
 	}
 	
 	std::unique_ptr<maze::Maze> maze;
-	std::unique_ptr<maze::MazeProcessor> factory;
+	std::unique_ptr<maze::MazeGenerator> generator;
 	//std::unique_ptr<maze::MazeProcessor> persistence_strategy;
 
 	try{
@@ -52,12 +53,16 @@ int main(int argc, char * argv[])
 			std::cout << "Seed: " << parser.generate_maze_seed << ". \n";
 			std::cout << "Width: " << parser.generate_maze_width << ". \n";
 			std::cout << "Height: " << parser.generate_maze_height << ". \n";
+
+			generator = std::unique_ptr<maze::MazeGenerator>(new maze::MazeGenerator(parser.generate_maze_seed, parser.generate_maze_width, parser.generate_maze_height));
+			generator->generate();
 		}
 		// load binary file
 		if(parser.load_binary_file != "")
 		{
 			std::cout << "Loading maze binary from: " << parser.load_binary_file << ". \n";
-
+			generator = std::unique_ptr<maze::MazeGenerator>(new maze::MazeGenerator(parser.generate_maze_seed, parser.generate_maze_width, parser.generate_maze_height));
+			generator->generate();
 		}
 		// save binary file
 		if(parser.save_binary_file != "")

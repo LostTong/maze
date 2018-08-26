@@ -14,8 +14,7 @@ namespace maze
 	{
 
 		public:
-			Maze(unsigned width, unsigned height);
-			Maze(): width(0), height(0) {};
+			Maze(int width, int height);
 			~Maze();
 
 			Cell *get_cell(int x_pos, int y_pos);
@@ -24,11 +23,11 @@ namespace maze
 			inline std::vector<Path *> *get_pathways() { return &paths; };
 			inline std::vector<std::vector<Cell *>> * get_cells() { return &cells; };
 			Cell *get_entry_cell() { return get_cell(0, 0); }
-			Cell * get_exit_cell() { return get_cell(width - 1, height - 1); }
+			Cell *get_exit_cell() { return get_cell(width - 1, height - 1); }
 
 		public:
-			std::vector<std::vector<maze::Cell *>> cells;
+			std::vector< std::vector< maze::Cell *> > cells;
 			std::vector<Path *> paths;
-			unsigned width, height;
+			int width, height;
 	};
 }

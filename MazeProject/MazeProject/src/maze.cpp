@@ -4,14 +4,14 @@
 
 namespace maze
 {
-	Maze::Maze(unsigned width, unsigned height){
+	Maze::Maze(int w, int h){
 		// create maze cells
-		for(unsigned i = 0; i < height; i++){
+		for(unsigned i = 0; i < w; i++){
 			// rows
 			std::vector<maze::Cell *> cur_row;
 
 			// columns
-			for(int j = 0; j < width; j++)
+			for(int j = 0; j < h; j++)
 			{
 				Cell *cell = new Cell(i, j);
 				cur_row.push_back(cell);
@@ -19,8 +19,8 @@ namespace maze
 			cells.push_back(cur_row);
 		}
 
-		this->width = width;
-		this->height = height;
+		width = w;
+		height = h;
 	}
 
 	Cell *Maze::get_cell(int x_pos, int y_pos){

@@ -16,9 +16,9 @@ namespace maze
 	{
 		public:
 			MazeGenerator(unsigned seed, unsigned width, unsigned height): seed(seed), width(width), height(height){};
-			std::unique_ptr<maze::Maze> generate();
-			bool depth_search(Maze &maze, std::mt19937 &mt, void *visited_cells_ptr);
-			void build_solve_path(Maze &maze);
+			void generate();
+			bool depth_search(std::mt19937 &mt, std::vector< std::vector<bool> > &visited_cells);
+			void build_solve_path(Maze *maze);
 
 			void BinaryLoad(std::string file_path) {};
 			void BinarySave(maze::Maze & maze, std::string file_path) {};
@@ -28,5 +28,7 @@ namespace maze
 			unsigned seed, width, height;
 			std::stack<Cell *> unvisited_cells;
 			std::vector<Path *> solve_paths;
+			std::vector< std::vector<bool> > visited_cells;
+			Maze *gen_maze;
 	};
 }
