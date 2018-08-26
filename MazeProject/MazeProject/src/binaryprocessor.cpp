@@ -27,7 +27,7 @@ namespace maze
 	}
 
 	/* Generates a maze using a binary file */
-	std::unique_ptr<maze::Maze> maze::BinaryProcessor::generate_maze()
+	maze::Maze* maze::BinaryProcessor::generate_maze()
 	{
 		std::fstream binaryFile(file_path, std::fstream::in | std::fstream::binary);
 
@@ -70,8 +70,8 @@ namespace maze
 
 
 		/* Initialize maze object */
-		std::unique_ptr<maze::Maze> maze(new Maze(height, width));
-
+		//std::unique_ptr<maze::Maze> maze(new Maze(height, width));
+		maze = new Maze(width, height);
 
 		unsigned long readEdges = 0;
 		/* edges */
@@ -115,6 +115,11 @@ namespace maze
 		if (!output_file.is_open())
 		{
 			OuputLog("Error:Could not open file");
+			return;
+		}
+		if (maze == nullptr)
+		{
+			OuputLog("Error:Maze is empty.");
 			return;
 		}
 
