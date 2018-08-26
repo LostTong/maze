@@ -137,13 +137,10 @@ namespace maze
 			const unsigned x2 = pathway->end_cell->get_x_position();
 			const unsigned y2 = pathway->end_cell->get_y_position();
 
-			/* x1 */
+			/* ouput x1 y1 x2 y2*/
 			output_file.write((char*)&x1, sizeof(x1));
-			/* y1 */
 			output_file.write((char*)&y1, sizeof(y1));
-			/* x2 */
 			output_file.write((char*)&x2, sizeof(x2));
-			/* y2 */
 			output_file.write((char*)&y2, sizeof(y2));
 		}
 		output_file.close();
