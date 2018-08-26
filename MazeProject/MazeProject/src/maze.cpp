@@ -11,7 +11,7 @@ namespace maze
 			std::vector<maze::Cell *> cur_row;
 
 			// columns
-			for(int j = 0; j < width; j++)
+			for(unsigned j = 0; j < width; j++)
 			{
 				Cell *cell = new Cell(i, j);
 				cur_row.push_back(cell);
@@ -23,7 +23,7 @@ namespace maze
 		this->height = height;
 	}
 
-	Cell *Maze::get_cell(int x_pos, int y_pos){
+	Cell *Maze::get_cell(unsigned x_pos, unsigned y_pos){
 		if(x_pos < 0 || x_pos >= width)
 		{
 			return nullptr;

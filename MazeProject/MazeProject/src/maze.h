@@ -18,7 +18,7 @@ namespace maze
 			Maze(): width(0), height(0) {};
 			~Maze();
 
-			Cell *get_cell(int x_pos, int y_pos);
+			Cell *get_cell(unsigned x_pos, unsigned y_pos);
 			void add_path(Cell *start_cell, Cell *end_cell);
 
 			inline std::vector<Path *> *get_pathways() { return &paths; };
