@@ -4,6 +4,10 @@
 
 namespace maze
 {
+	Maze::Maze() {
+
+	}
+
 	Maze::Maze(int w, int h){
 		// create maze cells
 		for(unsigned i = 0; i < w; i++){
@@ -20,6 +24,7 @@ namespace maze
 		}
 		width = w;
 		height = h;
+		maze_size = width * height;
 	}
 
 	Cell *Maze::get_cell(unsigned x_pos, unsigned y_pos){

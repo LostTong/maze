@@ -29,5 +29,6 @@ namespace maze
 			std::vector< std::vector< maze::Cell *> > cells;
 			std::vector<Path *> paths;
 			int width, height;
+			int maze_size;
 	};
 }

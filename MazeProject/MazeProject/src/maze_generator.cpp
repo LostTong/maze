@@ -16,13 +16,13 @@ namespace maze
 		gen_maze = new Maze(width, height);
 		visited_cells = std::vector< std::vector<bool> >(width + 1, std::vector<bool>(height + 1, false));
 		unvisited_cells.push(gen_maze->get_entry_cell());
-		/*
-		bool is_solve = depth_search(mt, visited_cells);
+		
+		bool is_solve = depth_search(mt, gen_maze->get_entry_cell(), visited_cells);
 		if (is_solve) {
 			build_solve_path(gen_maze);
 		}
-		*/
-		get_paths(mt);
+		return;
+		//get_paths(mt);
 		build_solve_path(gen_maze);
 		if (solve_paths[0]->start_cell == gen_maze->get_entry_cell()) {
 			std::cout << "Has Solve Path" << std::endl;
@@ -84,22 +84,18 @@ namespace maze
 		}
 	}
 
-	bool MazeGenerator::depth_search(std::mt19937 &mt, std::vector< std::vector<bool> > &visited_cells) {
-		// search cell stack
-		if (unvisited_cells.empty()) {
-			return false;
-		}
-		// new start cell
-		Cell *start_cell = unvisited_cells.top();
-		//std::unordered_set< Cell*> visited_cells = *(std::unordered_set< Cell*> *)visited_cells_ptr;
-		visited_cells[start_cell->get_x_position()][start_cell->get_y_position()] = true;
-		unvisited_cells.pop();
-		int x1 = start_cell->get_x_position();
-		int y1 = start_cell->get_y_position();
-		// is exit cell
-		if (start_cell == gen_maze->get_exit_cell()) {
+	bool MazeGenerator::depth_search(std::mt19937 &mt, maze::Cell *start_cell, std::vector< std::vector<bool> > &visited_cells) {
+		// exit cell
+		if (visited_cells.size() == gen_maze->maze_size) {
 			return true;
 		}
+		else if(start_cell == nullptr) {
+			return false;
+		}
+		// save visited flag
+		visited_cells[start_cell->get_x_position()][start_cell->get_y_position()] = true;
+		int x1 = start_cell->get_x_position();
+		int y1 = start_cell->get_y_position();
 		/* up, down, left, right */
 		unsigned x_pos = start_cell->get_x_position();
 		unsigned y_pos = start_cell->get_y_position();
@@ -108,28 +104,24 @@ namespace maze
 		Cell *cell_left = gen_maze->get_cell(x_pos - 1, y_pos);
 		Cell *cell_right = gen_maze->get_cell(x_pos + 1, y_pos);
 		std::vector<Cell *> cell_vec;
-		cell_vec.push_back(gen_maze->get_cell(x_pos, y_pos - 1));
-		cell_vec.push_back(gen_maze->get_cell(x_pos, y_pos + 1));
-		cell_vec.push_back(gen_maze->get_cell(x_pos - 1, y_pos));
-		cell_vec.push_back(gen_maze->get_cell(x_pos + 1, y_pos));
-		// add unvisited cells by mt::19937
-		while (true) {
-			if (cell_vec.empty()) {
-				break;
-			}
-			int idx = mt() % (cell_vec.size());
-			Cell *cell = cell_vec[idx];
+		cell_vec.push_back(cell_up);
+		cell_vec.push_back(cell_down);
+		cell_vec.push_back(cell_left);
+		cell_vec.push_back(cell_right);
+
+		while (cell_vec.size() > 0) {
+			unsigned random_index = mt() % cell_vec.size();
+			maze::Cell *cell = cell_vec[random_index];
 			if (cell != nullptr && visited_cells[cell->get_x_position()][cell->get_y_position()] == false) {
-				unvisited_cells.push(cell);
-				cell->prev_cell = start_cell;
 				gen_maze->add_path(start_cell, cell);
-				int x2 = cell->get_x_position();
-				int y2 = cell->get_y_position();
-				std::cout << "(" << x1 << ", " << y1 << ")" << " - > (" << x2 << ", " << y2 << ")" << std::endl;
+				cell->prev_cell = start_cell;
+				if (depth_search(mt, cell, visited_cells)) {
+					return true;
+				}
 			}
-			cell_vec.erase(cell_vec.begin() + idx);
+			cell_vec.erase(cell_vec.begin() + random_index);
 		}
-		return depth_search( mt, visited_cells);
+		return false;
 	}
 
 	void MazeGenerator::build_solve_path(Maze *maze) {

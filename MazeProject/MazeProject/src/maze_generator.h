@@ -22,7 +22,7 @@ namespace maze
 			MazeGenerator(unsigned seed, unsigned width, unsigned height): seed(seed), width(width), height(height), gen_maze(nullptr){};
 			void generate();
 			void get_paths(std::mt19937 &mt);
-			bool depth_search(std::mt19937 &mt, std::vector< std::vector<bool> > &visited_cells);
+			bool depth_search(std::mt19937 &mt, maze::Cell *curr_cell, std::vector< std::vector<bool> > &visited_cells);
 			void build_solve_path(Maze *maze);
 
 			void BinaryLoad(std::string file_path) {
