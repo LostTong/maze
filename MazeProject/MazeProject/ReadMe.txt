@@ -37,9 +37,9 @@ Saves a maze to a SVG
 
 ./maze --g 1314 20 30 --sb output_binary.maze   (generate binary maze file with seed:1314, width:20, height:30 and output binary_file:output_binary.maze)
 
-./maze --lb binary_file.maze --sv output.svg   (load binary file and output to SVG)
+./maze --lb output_binary.maze --sv output.svg   (load binary file and output to SVG)
 
-./maze -g 22 5 10 --sv output_svg.svg    (generate SVG maze file with seed:22, width:5, height:10 and ouput svg file:output_svg.svg)
+./maze --g 22 5 10 --sv output_svg.svg    (generate SVG maze file with seed:22, width:5, height:10 and ouput svg file:output_svg.svg)
 
 
 

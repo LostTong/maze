@@ -126,8 +126,8 @@ namespace maze
 		std::vector<maze::Path *> * pathways = maze->get_paths();
 
 		/* Write headers */
-		const unsigned height = maze->width;
-		const unsigned width = maze->height;
+		const unsigned height = maze->height;
+		const unsigned width = maze->width;
 		const unsigned number_edges = pathways->size();
 		
 		output_file.write((char*)&width, sizeof(width));
