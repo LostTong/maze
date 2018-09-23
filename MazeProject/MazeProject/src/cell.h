@@ -19,6 +19,17 @@ namespace maze
 			inline bool has_path() { return !paths.empty();};
 			void add_path(Path *pathway);
 
+			bool operator < (const Cell &cell) {
+				if (this->x_pos < cell.x_pos) {
+					return true;
+				}
+				return this->y_pos < cell.y_pos;
+			}
+
+			bool operator == (const Cell &cell) {
+				return this->x_pos == cell.x_pos && this->y_pos == cell.y_pos;
+			}
+
 
 	public:
 		unsigned x_pos, y_pos;
