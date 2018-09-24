@@ -20,6 +20,11 @@ bool operator < (const TreeNode<ValueType> &left_node, const TreeNode<ValueType>
 }
 
 template <typename ValueType>
+bool operator > (const TreeNode<ValueType> &left_node, const TreeNode<ValueType> &right_node) {
+	return left_node.value > right_node.value;
+}
+
+template <typename ValueType>
 bool operator == (const TreeNode<ValueType> &left_node, const TreeNode<ValueType> &right_node) {
 	return left_node.value == right_node.value;
 }

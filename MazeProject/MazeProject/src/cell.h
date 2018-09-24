@@ -26,6 +26,10 @@ namespace maze
 				return this->y_pos < cell.y_pos;
 			}
 
+			bool operator > (const Cell &cell) {
+				return !(*this < cell);
+			}
+
 			bool operator == (const Cell &cell) {
 				return this->x_pos == cell.x_pos && this->y_pos == cell.y_pos;
 			}
