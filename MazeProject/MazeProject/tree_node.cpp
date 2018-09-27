@@ -2,7 +2,7 @@
 
 
 template <typename ValueType>
-TreeNode::TreeNode(const ValueType &value)
+TreeNode<typename ValueType>::TreeNode(const ValueType &value)
 {
 	left = nullptr;
 	right = nullptr;
@@ -10,7 +10,7 @@ TreeNode::TreeNode(const ValueType &value)
 }
 
 template <typename ValueType>
-TreeNode::~TreeNode()
+TreeNode<typename ValueType>::~TreeNode()
 {
 }
 

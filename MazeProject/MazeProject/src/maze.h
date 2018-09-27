@@ -14,6 +14,7 @@ namespace maze
 	{
 
 		public:
+			Maze();
 			Maze(int width, int height);
 			~Maze();
 
