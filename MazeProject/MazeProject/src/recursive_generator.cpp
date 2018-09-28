@@ -12,6 +12,6 @@ RecursiveGenerator::~RecursiveGenerator()
 }
 
 void RecursiveGenerator::generate() {
-
+	
 }
 

@@ -2,16 +2,16 @@
 
 using namespace maze;
 
-PrimGenerateor::PrimGenerateor(unsigned seed, unsigned width, unsigned height) : BaseGenerator(seed, width, height)
+PrimGenerator::PrimGenerator(unsigned seed, unsigned width, unsigned height) : BaseGenerator(seed, width, height)
 {
    
 }
 
 
-PrimGenerateor::~PrimGenerateor() {
+PrimGenerator::~PrimGenerator() {
 
 }
 
-void PrimGenerateor::generate() {
+void PrimGenerator::generate() {
 
 }

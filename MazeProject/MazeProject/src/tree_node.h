@@ -9,6 +9,7 @@ public:
 
 	TreeNode<ValueType> *left;
 	TreeNode<ValueType> *right;
+	TreNode<ValueType> *prev;
 	ValueType value;
 };
 
