@@ -11,6 +11,10 @@ public:
 	TreeNode<ValueType> *right;
 	TreeNode<ValueType> *prev;
 	ValueType *value;
+
+	bool operator == (const TreeNode<ValueType> *node) const {
+		return (node != nullptr && this->value == node->value);
+	}
 };
 
 

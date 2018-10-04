@@ -11,15 +11,16 @@ namespace maze
 		
 	public:
 		std::string file_path;
-		maze::Maze * maze;
+		maze::Maze *maze;
 		BinaryProcessor() {};
+		BinaryProcessor(const std::string &file_path) { this->file_path = file_path;}
 		BinaryProcessor(maze::Maze * maze, std::string file_path)
 		{
 			this->maze = maze,
 			this->file_path = file_path;
 		}
 		maze::Maze* generate_maze();
-		void save_maze_file();
+		void save_maze_file(maze::Maze *new_maze = nullptr);
 		std::string determin_edge_out_of_bound(unsigned x1, unsigned y1, unsigned x2, unsigned y2);
 	};
 }

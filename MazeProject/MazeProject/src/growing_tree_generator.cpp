@@ -36,7 +36,7 @@ void GrowingTreeGenerator::generate() {
 		cell_vec.push_back(gen_maze->get_cell(x_pos + 1, y_pos));
 		std::vector<maze::Cell *> unvisited_cells;
 		for (auto *cell : cell_vec) {
-			if (cell != nullptr && !set->contain(cell)) {
+			if (cell != nullptr && !cell->has_path()) {
 				unvisited_cells.push_back(cell);
 			}
 		}
@@ -50,4 +50,5 @@ void GrowingTreeGenerator::generate() {
 		gen_maze->add_path(cur_cell, next_cell);
 		set->add(next_cell);
 	}
+	int a = 0;
 }

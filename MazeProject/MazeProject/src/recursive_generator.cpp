@@ -12,6 +12,6 @@ RecursiveGenerator::~RecursiveGenerator()
 }
 
 Cell *RecursiveGenerator::get_next() {
-	return set->pop();
+	return set->get_last();
 }
 

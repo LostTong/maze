@@ -69,7 +69,7 @@ namespace maze {
 				}
 			}
 			// generate maze
-			else if (cur_arg == generate_maze_flag) {
+			else if (cur_arg == generate_maze_prim || cur_arg == generate_maze_recursive) {
 				if (next_arg == "") {
 					std::cerr << "Save Binary File: parameters invalid." << std::endl;
 					return false;
@@ -83,9 +83,15 @@ namespace maze {
 							generate_maze_width = (unsigned)std::stol(argv[i + 2]);
 							generate_maze_height = (unsigned)std::stol(argv[i + 3]);
 							i += 3;
+							if (cur_arg == generate_maze_prim) {
+								generate_maze_type = "P";
+							}
+							else {
+								generate_maze_type = "R";
+							}
 						}
 						catch (const char* msg) {
-							std::cerr << "Save Binary File: parameters invalid." << std::endl;
+							std::cerr << "Save Binary File: parameters invalid with msg:" << msg << std::endl;
 							return false;
 						}
 					}

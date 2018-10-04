@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <unordered_map>
 
 #include "tree_node.h"
@@ -16,7 +17,7 @@ public:
 	void remove(ValueType *value);
 	void clear();
 	ValueType *pop();
-	ValueType *top();
+	ValueType *get_last();
 	int get_size() const;
 	ValueType *get_value(int idx);
 
@@ -57,6 +58,7 @@ void Set<ValueType>::add_recursive(const ValueType &value, TreeNode<ValueType> *
 		cur_node = new TreeNode<ValueType>(&value);
 		last = cur_node;
 		size += 1;
+		root = cur_node;
 	}
 	else {
 		// left
@@ -66,6 +68,8 @@ void Set<ValueType>::add_recursive(const ValueType &value, TreeNode<ValueType> *
 				cur_node->left->prev = last;
 				last = cur_node->left;
 				size += 1;
+				//std::cout << "prev x,y:" << cur_node->value->get_x_position() << ", " << cur_node->value->get_y_position() << std::endl;
+				//std::cout << "left value x,y:" << cur_node->left->value->get_x_position() << ", " << cur_node->left->value->get_y_position() << std::endl;
 			}
 			else {
 				add_recursive(value, cur_node->left);
@@ -78,6 +82,8 @@ void Set<ValueType>::add_recursive(const ValueType &value, TreeNode<ValueType> *
 				cur_node->right->prev = last;
 				last = cur_node->right;
 				size += 1;
+				//std::cout << "prev x,y:" << cur_node->value->get_x_position() << ", " << cur_node->value->get_y_position() << std::endl;
+				//std::cout << "right value x,y:" << cur_node->right->value->get_x_position() << ", " << cur_node->right->value->get_y_position() << std::endl;
 			}
 			else {
 				add_recursive(value, cur_node->right);
@@ -112,12 +118,19 @@ void Set<ValueType>::remove(ValueType *value) {
 
 template <typename ValueType>
 void Set<ValueType>::remove_recursive(ValueType *value, TreeNode<ValueType> *cur_node, TreeNode<ValueType> *prev_node) {
+	//std::cout << "value x, y:" << value->x_pos << ", " << value->y_pos << " cur_node x,y:" << cur_node->value->x_pos << ", " << cur_node->value->y_pos << std::endl;
 	if (cur_node != nullptr) {
 		if (value == cur_node->value) {
+			if (value == last->value) {
+				last = last->prev;
+			}
 			size -= 1;
+
+			//std::cout << "value x, y:" << value->x_pos << ", " << value->y_pos << " cur_node x,y:" << cur_node->value->x_pos << ", " << cur_node->value->y_pos << std::endl;
+
 			// left
 			if (cur_node->left != nullptr) {
-				// root
+				// root     
 				if (prev_node == nullptr) {
 					root = cur_node->left;
 				}
@@ -129,9 +142,12 @@ void Set<ValueType>::remove_recursive(ValueType *value, TreeNode<ValueType> *cur
 				else {
 					prev_node->right = cur_node->left;
 				}
-
 				if (cur_node->right != nullptr) {
-					cur_node->left->right = cur_node->right;
+					TreeNode<ValueType> *tmp_node = cur_node->left;
+					while (tmp_node->right != nullptr) {
+						tmp_node = tmp_node->right;
+					}
+					tmp_node->right = cur_node->right;
 				}
 			}
 			// right
@@ -164,12 +180,11 @@ void Set<ValueType>::remove_recursive(ValueType *value, TreeNode<ValueType> *cur
 					prev_node->right = nullptr;
 				}
 			}
-			last = last->prev;
 			value_map.erase(value);
 			delete cur_node;
 		}
 		else {
-			if (cur_node->value > value) {
+			if (*(cur_node->value) > *value) {
 				remove_recursive(value, cur_node->left, cur_node);
 			}
 			else {
@@ -221,7 +236,7 @@ ValueType *Set<ValueType>::pop() {
 }
 
 template <typename ValueType>
-ValueType *Set<ValueType>::top() {
+ValueType *Set<ValueType>::get_last() {
 	if (last == nullptr) {
 		return nullptr;
 	}

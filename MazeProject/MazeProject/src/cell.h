@@ -2,6 +2,7 @@
 
 #include "path.h"
 #include <vector>
+#include <iostream>
 
 namespace maze
 {
@@ -20,8 +21,8 @@ namespace maze
 			void add_path(Path *pathway);
 
 			bool operator < (const Cell &cell) const{
-				if (this->x_pos < cell.x_pos) {
-					return true;
+				if (this->x_pos != cell.x_pos) {
+					return this->x_pos < cell.x_pos;
 				}
 				return this->y_pos < cell.y_pos;
 			}

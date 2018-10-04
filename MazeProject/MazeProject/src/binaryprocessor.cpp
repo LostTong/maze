@@ -108,7 +108,7 @@ namespace maze
 		return maze;
 	}
 
-	void maze::BinaryProcessor::save_maze_file()
+	void maze::BinaryProcessor::save_maze_file(maze::Maze *new_maze)
 	{
 		std::fstream output_file(file_path, std::fstream::out | std::fstream::binary | std::fstream::trunc);
 
@@ -117,6 +117,11 @@ namespace maze
 			OuputLog("Error:Could not open file");
 			return;
 		}
+
+		if (new_maze != nullptr) {
+			maze = new_maze;
+		}
+
 		if (maze == nullptr)
 		{
 			OuputLog("Error:Maze is empty.");
