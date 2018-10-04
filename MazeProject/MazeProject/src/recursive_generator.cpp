@@ -2,7 +2,7 @@
 
 using namespace maze;
 
-RecursiveGenerator::RecursiveGenerator(unsigned seed, unsigned width, unsigned height) : BaseGenerator(seed, width, height)
+RecursiveGenerator::RecursiveGenerator(unsigned seed, unsigned width, unsigned height) : GrowingTreeGenerator(seed, width, height)
 {
 
 }
@@ -11,7 +11,7 @@ RecursiveGenerator::~RecursiveGenerator()
 {
 }
 
-void RecursiveGenerator::generate() {
-	
+Cell *RecursiveGenerator::get_next() {
+	return set->pop();
 }
 

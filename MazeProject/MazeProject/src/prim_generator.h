@@ -4,16 +4,16 @@
 #include <unordered_set>
 
 #include "maze.h"
-#include "base_generator.h"
+#include "growing_tree_generator.h"
 
 namespace maze
 {
-	class PrimGenerator : public BaseGenerator
+	class PrimGenerator : public GrowingTreeGenerator
 	{
 		public:
 			PrimGenerator(unsigned seed, unsigned width, unsigned height);
             ~PrimGenerator();
 		
-			void generate();
+			Cell *get_next();
 	};
 }

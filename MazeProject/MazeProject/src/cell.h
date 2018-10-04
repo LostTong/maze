@@ -19,19 +19,15 @@ namespace maze
 			inline bool has_path() { return !paths.empty();};
 			void add_path(Path *pathway);
 
-			bool operator < (const Cell &cell) {
+			bool operator < (const Cell &cell) const{
 				if (this->x_pos < cell.x_pos) {
 					return true;
 				}
 				return this->y_pos < cell.y_pos;
 			}
 
-			bool operator > (const Cell &cell) {
+			bool operator > (const Cell &cell) const{
 				return !(*this < cell);
-			}
-
-			bool operator == (const Cell &cell) {
-				return this->x_pos == cell.x_pos && this->y_pos == cell.y_pos;
 			}
 
 
@@ -41,6 +37,7 @@ namespace maze
 		Cell *prev_cell;
 	};
 }
+
 /* hash */
 namespace std{
 template <>
@@ -49,6 +46,15 @@ struct hash<maze::Cell *>
 	std::size_t operator()(maze::Cell * const & cell) const noexcept
 	{
 		return std::hash<std::size_t>()((std::size_t)cell);
+	}
+};
+
+template <>
+struct equal_to<maze::Cell *>
+{
+	bool operator()(maze::Cell *cell1, maze::Cell *cell2) const noexcept
+	{
+		return (cell1->get_x_position() == cell2->get_x_position() && cell1->get_y_position() == cell2->get_y_position());
 	}
 };
 } 

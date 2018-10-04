@@ -14,6 +14,7 @@
 #include "svg_save.h"
 #include "args_parser.h"
 #include "maze_generator.h"
+#include "growing_tree_generator.h"
 
 int main(int argc, char * argv[])
 {

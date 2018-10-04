@@ -1,15 +1,15 @@
 #pragma once
 
-#include "base_generator.h"
+#include "growing_tree_generator.h"
 
 namespace maze {
-	class RecursiveGenerator : public BaseGenerator
+	class RecursiveGenerator : public GrowingTreeGenerator
 	{
 	public:
 		RecursiveGenerator(unsigned seed, unsigned width, unsigned height);
 		~RecursiveGenerator();
 
-		void generate();
+		Cell *get_next();
 	};
 
 }

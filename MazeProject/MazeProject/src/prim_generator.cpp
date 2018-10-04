@@ -2,7 +2,7 @@
 
 using namespace maze;
 
-PrimGenerator::PrimGenerator(unsigned seed, unsigned width, unsigned height) : BaseGenerator(seed, width, height)
+PrimGenerator::PrimGenerator(unsigned seed, unsigned width, unsigned height) : GrowingTreeGenerator(seed, width, height)
 {
    
 }
@@ -12,6 +12,7 @@ PrimGenerator::~PrimGenerator() {
 
 }
 
-void PrimGenerator::generate() {
-
+Cell *PrimGenerator::get_next() {
+	int random_idx = (*mt)() % set->get_size();
+	return set->get_value(random_idx);
 }
