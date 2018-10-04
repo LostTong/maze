@@ -13,8 +13,9 @@ Set<ValueType>::~Set()
 }
 
 template <typename ValueType>
-void Set<ValueType>::add(const ValueType &value) {
-	add_rescusive(value, root);
+void Set<ValueType>::add(const ValueType *value) {
+	add_rescusive(*value, root);
+	value_map[value] = get_size() - 1;
 }
 
 template <typename ValueType>
@@ -30,6 +31,7 @@ void Set<ValueType>::add_recursive(const ValueType &value, TreeNode<ValueType> *
 		if (value < cur_node->value) {
 			if(cur_node->left == nullptr){
 				cur_node->left = new TreeNode<ValueType>(value);
+				cur_node->left->prev = last;
 				last = cur_node->left;
 				size += 1;
 			}
@@ -41,6 +43,7 @@ void Set<ValueType>::add_recursive(const ValueType &value, TreeNode<ValueType> *
 		else {
 			if(cur_node->right == nullptr){
 				cur_node->right = new TreeNode<ValueType>(value);
+				cur_node->right->prev = last;
 				last = cur_node->right;
 				size += 1;
 			}
@@ -52,8 +55,8 @@ void Set<ValueType>::add_recursive(const ValueType &value, TreeNode<ValueType> *
 }
 
 template <typename ValueType>
-bool Set<ValueType>::contain(const ValueType &value) const {
-	return contain_recursive(value, root);
+bool Set<ValueType>::contain(const ValueType *value) const {
+	return contain_recursive(*value, root);
 }
 
 template <typename ValueType>
@@ -71,8 +74,8 @@ bool Set<ValueType>::contain_recursive(const ValueType &value, TreeNode<ValueTyp
 }
 
 template <typename ValueType>
-void Set<ValueType>::remove(const ValueType &value) {
-	remove_recursive(value, root, nullptr);
+void Set<ValueType>::remove(const ValueType *value) {
+	remove_recursive(*value, root, nullptr);
 }
 
 template <typename ValueType>
@@ -129,6 +132,9 @@ void Set<ValueType>::remove_recursive(const ValueType &value, TreeNode<ValueType
 					prev_node->right = nullptr;
 				}
 			}
+			last = last->prev;
+			value_map.erase(&value);
+			delete cur_node;
 		}
 		else {
 			if(curr_node->value > value){
@@ -144,6 +150,7 @@ void Set<ValueType>::remove_recursive(const ValueType &value, TreeNode<ValueType
 template <typename ValueType>
 void Set<ValueType>::clear(){
 	clear_recursive(root);
+	root = last = nullptr;
 }
 
 template <typename ValueType>
@@ -168,4 +175,21 @@ TreeNode<ValueType> *Set<ValueType>::get_last_node() const{
 template <typename ValueType>
 int Set<ValueType>::get_size() const{
 	return size;
+}
+
+template <typename ValueType>
+TreeNode<ValueType> *Set<ValueType>::pop() {
+	if (last == nullptr) {
+		return nullptr;
+	}
+	remove(last->value);
+	tmp = last;
+	last = last->prev;
+	return tmp;
+}
+
+template <typename ValueType>
+ValueType *Set<ValueType>::get_value(int idx) {
+	int tmp = idx % value_map.size();
+	return (value_map.begin() + tmp)->first;
 }
