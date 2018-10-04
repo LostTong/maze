@@ -9,6 +9,7 @@ Set<ValueType>::Set()
 template <typename ValueType>
 Set<ValueType>::~Set()
 {
+	clear();
 }
 
 template <typename ValueType>
