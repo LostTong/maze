@@ -15,6 +15,9 @@
 #include "args_parser.h"
 #include "maze_generator.h"
 #include "generator_factory.h"
+#include "maze_routing.h"
+
+using namespace maze;
 
 int main(int argc, char * argv[])
 {
@@ -27,8 +30,9 @@ int main(int argc, char * argv[])
 	
 	maze::Maze *maze = nullptr;
 	std::unique_ptr<GeneratorFactory> maze_generator;
-	std::unique_ptr<maze::BinaryProcessor> binary_processor;
-	std::unique_ptr<maze::SVGSave> svg_save;
+	std::unique_ptr<BinaryProcessor> binary_processor;
+	std::unique_ptr<SVGSave> svg_save;
+	std::unique_ptr<MazeRouting> maze_routing;
 
 	try{
 		// generate maze
@@ -62,6 +66,11 @@ int main(int argc, char * argv[])
 				binary_processor = std::unique_ptr<maze::BinaryProcessor>();
 			}
 			binary_processor->save_maze_file(maze);
+		}
+		// solve maze
+		if (parser.solve_maze_enable) {
+			maze_routing = std::unique_ptr<MazeRouting>(new MazeRouting(maze));
+			maze_routing->path_finding();
 		}
 		// save svg file
 		if(parser.save_svg_file != "")

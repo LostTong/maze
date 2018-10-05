@@ -47,7 +47,7 @@ namespace maze
  		bool solved = !solved_pathway.empty();
 		output << "<rect style='fill:";
  			if(solved)
- 				output << path_color;
+ 				output << solved_path_color;
  			else
  				output << path_color;
 		output << "' x='0' y='" << offset << "' width='" << path_width;
@@ -55,7 +55,7 @@ namespace maze
 
 		output << "<rect style='fill:";
  			if(solved)
- 				output << path_color;
+ 				output << solved_path_color;
  			else
  				output << path_color;
 		output << "' x='" << (box_width - path_width - offset)  << "' y='";

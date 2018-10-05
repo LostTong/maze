@@ -29,6 +29,7 @@ namespace maze
 		public:
 			std::vector< std::vector< maze::Cell *> > cells;
 			std::vector<Path *> paths;
+			std::vector<Path *> *solved_paths;
 			int width, height;
 			int maze_size;
 	};

@@ -36,6 +36,7 @@ namespace maze
 		unsigned x_pos, y_pos;
 		std::vector<Path *> paths;
 		Cell *prev_cell;
+		bool is_visited;
 	};
 }
 

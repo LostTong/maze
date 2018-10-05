@@ -25,6 +25,7 @@ namespace maze {
 		std::string save_svg_file;
 		
 		bool generate_maze_enable;
+		bool solve_maze_enable;
 		std::string generate_maze_type;
 
 		unsigned generate_maze_seed;

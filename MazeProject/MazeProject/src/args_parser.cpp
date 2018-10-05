@@ -35,7 +35,7 @@ namespace maze {
 			if (i + 1 < argc) {
 				next_arg = argv[i + 1];
 			}
-			// load binay file
+			// load binary file
 			if (cur_arg == load_binary_flag) {
 				if (next_arg == "") {
 					std::cerr << "Load Binary File: parameters invalid." << std::endl;
@@ -102,17 +102,26 @@ namespace maze {
 
 				}
 			}
+			// solve maze
+			else if(cur_arg == solve_maze) {
+				solve_maze_enable = true;
+			}
+			// invalid args
+			else {
+				std::cerr << "Invalid args." << std::endl;
+				return false;
+			}
 		}
 
 		/* verify */ 
 		// save svg without load binary/generate maze
 		if (save_svg_file != "" && (load_binary_file == "" && generate_maze_enable == false)) {
-			std::cerr << "Save SVG File Without Load Binary or Geneate Maze." << std::endl;
+			std::cerr << "Save SVG File Without Load Binary or Generate Maze." << std::endl;
 			return false;
 		}
 		// save binary without generate maze
 		if (save_binary_file != "" && (load_binary_file == "" && generate_maze_enable == false)) {
-			std::cerr << "Save Binary File Without Load Binary or Geneate Maze." << std::endl;
+			std::cerr << "Save Binary File Without Load Binary or Generate Maze." << std::endl;
 			return false;
 		}
 		return true;

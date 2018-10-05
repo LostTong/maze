@@ -23,5 +23,6 @@ namespace maze
 			const int wall_width = (int)(0.1 * 20);
 			const int path_width = 20 - 2 * wall_width;
 			const std::string path_color = "rgb(255,255,255)";
+			const std::string solved_path_color = "rgb(255,0,0)";
 	};
 }
