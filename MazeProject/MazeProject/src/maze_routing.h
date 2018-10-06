@@ -18,6 +18,8 @@ public:
 
 private:
 	bool solve_path(Cell *cur_cell, Cell *exit_cell);
+	void solve_path2();
+	void build_path();
 
 public:
 	maze::Maze *maze;

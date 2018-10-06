@@ -18,6 +18,7 @@ namespace maze {
 		save_svg_file = "";
 
 		generate_maze_enable = false;
+		solve_maze_enable = false;
 		generate_maze_seed = 0;
 		generate_maze_width = 0;
 		generate_maze_height = 0;

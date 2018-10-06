@@ -81,57 +81,48 @@ namespace maze
 		int x2 = path.end_cell->get_x_position();
 		int y2 = path.end_cell->get_y_position();
 
- 			/* Dimentions depends on the edges/pathways - some in reverse order 
- 			(right to left etc) so first we determine which cell is first,
- 			then we can work out how to make the rectangle */
- 			if (x1 < x2)
- 			{
- 				x = x1 * cell_size + offset;
- 				path_width = 2 * cell_size - offset;
-					/* (spanning over two cells) */
- 			}
- 			else if (x1 > x2)
- 			{
- 				x = x2 * cell_size + offset;
- 				path_width = 2 * cell_size - offset;
-					/* (spanning over two cells) */
- 			}
- 			else /* equal */
- 			{
- 				x = x2 * cell_size + offset;
- 				path_width = cell_size - offset;
-					/* (spanning over one cell) */
- 			}
-
- 			if (y1 < y2)
- 			{
- 				y = y1 * cell_size + offset;
- 				path_height = 2 * cell_size - offset;
-					/* (spanning over two cells) */
- 			}
- 			else if (y1 > y2)
- 			{
- 				y = y2 * cell_size + offset;
- 				path_height = 2 * cell_size - offset;
-					/* (spanning over two cells) */
- 			}
- 			else /* equal */
- 			{
- 				y = y2 * cell_size + offset;
- 				path_height = cell_size - offset;
-					/* (spanning over one cell) */
- 			}
-
- 			output << "<rect style='fill:";
- 			if(path.is_exit_path)
- 				output << path_color;
- 			else
- 				output << path_color;
- 			output << "' ";
- 			output << " x='" << x;
- 			output << "' y='" << y;
- 			output << "' width='" << path_width;
- 			output << "' height='" << path_height << "'/>" << "\n";
+ 		if (x1 < x2)
+ 		{
+ 			x = x1 * cell_size + offset;
+ 			path_width = 2 * cell_size - offset;
+ 		}
+ 		else if (x1 > x2)
+ 		{
+ 			x = x2 * cell_size + offset;
+ 			path_width = 2 * cell_size - offset;
+ 		}
+ 		else
+ 		{
+ 			x = x2 * cell_size + offset;
+ 			path_width = cell_size - offset;
  		}
 
+ 		if (y1 < y2)
+ 		{
+ 			y = y1 * cell_size + offset;
+ 			path_height = 2 * cell_size - offset;
+ 		}
+ 		else if (y1 > y2)
+ 		{
+ 			y = y2 * cell_size + offset;
+ 			path_height = 2 * cell_size - offset;
+ 		}
+ 		else
+ 		{
+ 			y = y2 * cell_size + offset;
+ 			path_height = cell_size - offset;
+ 		}
+
+ 		output << "<rect style='fill:";
+ 		if(path.is_exit_path)
+ 			output << solved_path_color;
+ 		else
+ 			output << path_color;
+ 		output << "' ";
+ 		output << " x='" << x;
+ 		output << "' y='" << y;
+ 		output << "' width='" << path_width;
+ 		output << "' height='" << path_height << "'/>" << "\n";
  	}
+
+}

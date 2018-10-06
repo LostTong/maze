@@ -13,4 +13,13 @@ namespace maze
 	{
 		paths.push_back(pathway);
 	}
+
+	bool Cell::is_connect_cell(Cell *cell) {
+		for (auto *path : *(get_paths())) {
+			if (path->start_cell == cell || path->end_cell == cell) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

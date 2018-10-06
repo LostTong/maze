@@ -1,5 +1,7 @@
 #include "growing_tree_generator.h"
 
+#include <chrono>
+
 using namespace maze;
 
 GrowingTreeGenerator::GrowingTreeGenerator(unsigned seed, unsigned width, unsigned height) : seed(seed), width(width), height(height)
@@ -18,6 +20,8 @@ Cell *GrowingTreeGenerator::get_next() {
 }
 
 void GrowingTreeGenerator::generate() {
+	auto start = std::chrono::system_clock::now();
+
 	// set
 	set = new Set<Cell>();
 	// add entry cell
@@ -50,5 +54,8 @@ void GrowingTreeGenerator::generate() {
 		gen_maze->add_path(cur_cell, next_cell);
 		set->add(next_cell);
 	}
-	int a = 0;
+	
+	auto end = std::chrono::system_clock::now();
+	std::chrono::duration<double> total_time = end - start;
+	std::cout << "Maze Routing Total Time:" << total_time.count() << std::endl;
 }

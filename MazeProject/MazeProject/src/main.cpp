@@ -7,7 +7,6 @@
 #include <climits>
 #include <memory>
 
-
 #include "maze.h"
 #include "depthfirstsearchsolver.h"
 #include "binaryprocessor.h"
