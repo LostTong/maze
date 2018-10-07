@@ -211,7 +211,7 @@ void Set<ValueType>::clear_recursive(const TreeNode<ValueType> *cur_node) {
 	if (cur_node->right != nullptr) {
 		clear_recursive(cur_node->right);
 	}
-	delete curr_node;
+	delete cur_node;
 }
 
 template <typename ValueType>
@@ -247,7 +247,7 @@ ValueType *Set<ValueType>::get_last() {
 template <typename ValueType>
 ValueType *Set<ValueType>::get_value(int idx) {
 	int tmp = idx % value_map.size();
-	std::unordered_map<const ValueType *, int>::iterator it = value_map.begin();
+	auto it = value_map.begin();
 	std::advance(it, tmp);
  	return const_cast<ValueType *>(it->first);
 }

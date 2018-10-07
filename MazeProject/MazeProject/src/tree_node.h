@@ -19,7 +19,7 @@ public:
 
 
 template <typename ValueType>
-TreeNode<typename ValueType>::TreeNode(const ValueType *value)
+TreeNode<ValueType>::TreeNode(const ValueType *value)
 {
 	left = nullptr;
 	right = nullptr;
@@ -28,6 +28,6 @@ TreeNode<typename ValueType>::TreeNode(const ValueType *value)
 }
 
 template <typename ValueType>
-TreeNode<typename ValueType>::~TreeNode()
+TreeNode<ValueType>::~TreeNode()
 {
 }
