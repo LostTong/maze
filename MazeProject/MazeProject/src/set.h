@@ -21,12 +21,25 @@ public:
 	int get_size() const;
 	ValueType *get_value(int idx);
 
+	void insert(ValueType *value);
+	void remove2(ValueType *value);
+	bool search(ValueType *value);
+
 private:
 	void add_recursive(const ValueType &value, TreeNode<ValueType> *cur_node);
 	bool contain_recursive(const ValueType &value, TreeNode<ValueType> *cur_node) const;
 	void remove_recursive(ValueType *value, TreeNode<ValueType> *cur_node, TreeNode<ValueType> *prev_node);
 	void clear_recursive(const TreeNode<ValueType> *cur_node);
 	TreeNode<ValueType> *get_last_node() const;
+
+	TreeNode<ValueType> *serach(ValueType *value, TreeNode<ValueType> *cur_node);
+	TreeNode<ValueType> *left_rotate(TreeNode<ValueType> *cur_node);
+	TreeNode<ValueType> *right_rotate(TreeNode<ValueType> *cur_node);
+	TreeNode<ValueType> *left_right_rotate(TreeNode<ValueType> *cur_node);
+	TreeNode<ValueType> *right_left_rotate(TreeNode<ValueType> *cur_node);
+	int get_height(TreeNode<ValueType> *cur_node);
+	TreeNode<ValueType> *insert(TreeNode<ValueType> *cur_node);
+	TreeNode<ValueType> *remove(TreeNode<ValueType> *cur_node);
 
 	int size;
 	TreeNode<ValueType> *root;
@@ -37,6 +50,9 @@ private:
 template <typename ValueType>
 Set<ValueType>::Set()
 {
+	root = nullptr;
+	last = nullptr;
+	size = 0;
 }
 
 template <typename ValueType>
@@ -46,6 +62,45 @@ Set<ValueType>::~Set()
 }
 
 template <typename ValueType>
+int Set<ValueType>::get_height(TreeNode<ValueType> *node) {
+	return node == nullptr ? -1 : node->height;
+}
+
+// search
+template <typename ValueType>
+TreeNode<ValueType> *Set<ValueType>::serach(ValueType *value) {
+	return serach(value, root) == nullptr ? false : true;
+}
+
+template <typename ValueType>
+TreeNode<ValueType> *Set<ValueType>::serach(ValueType *value, TreeNode<ValueType> *node) {
+	if(node == nullptr){
+		return nullptr;
+	}
+	if(value == node->value){
+		return node;
+	}
+	if(*value < *(node-<value)){
+		return search(value, node->left);
+	}
+	return search(value, node->right);
+}
+
+// rotate
+TreeNode<ValueType> *Set<ValueType>::left_rotate(TreeNode<ValueType> *node){
+	TreeNode<ValueType> *left_node = node->right->left;
+	TreeNode<ValueType> *new_node = node->right;
+	node->right->left = node;
+	node->right = left_node;
+	node->height = max(get_height(node->left), get_height(node->right)) + 1;
+	if(node->left != nullptr){
+		node->left->height max(get_height(node->left->left), get_height(node->left->right)) + 1;
+	}
+	return new_node;
+}
+
+
+template <typename ValueType>
 void Set<ValueType>::add(const ValueType *value) {
 	add_recursive(*value, root);
 	value_map.insert({value, get_size() - 1});
@@ -53,8 +108,10 @@ void Set<ValueType>::add(const ValueType *value) {
 
 template <typename ValueType>
 void Set<ValueType>::add_recursive(const ValueType &value, TreeNode<ValueType> *cur_node) {
+	//std::cout << "add_recursive" << std::endl;
 	// root
 	if (cur_node == nullptr) {
+		//std::cout << "add1" << std::endl;
 		cur_node = new TreeNode<ValueType>(&value);
 		last = cur_node;
 		size += 1;
@@ -119,6 +176,7 @@ void Set<ValueType>::remove(ValueType *value) {
 template <typename ValueType>
 void Set<ValueType>::remove_recursive(ValueType *value, TreeNode<ValueType> *cur_node, TreeNode<ValueType> *prev_node) {
 	//std::cout << "value x, y:" << value->x_pos << ", " << value->y_pos << " cur_node x,y:" << cur_node->value->x_pos << ", " << cur_node->value->y_pos << std::endl;
+	//std::cout << "remove_recursive" << std::endl;
 	if (cur_node != nullptr) {
 		if (value == cur_node->value) {
 			if (value == last->value) {

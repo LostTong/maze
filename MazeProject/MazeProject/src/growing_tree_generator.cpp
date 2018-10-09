@@ -21,7 +21,6 @@ Cell *GrowingTreeGenerator::get_next() {
 
 void GrowingTreeGenerator::generate() {
 	auto start = std::chrono::system_clock::now();
-
 	// set
 	set = new Set<Cell>();
 	// add entry cell
@@ -45,6 +44,7 @@ void GrowingTreeGenerator::generate() {
 			}
 		}
 		if (unvisited_cells.empty()) {
+			//std::cout << "remove cell:" << cur_cell->get_x_position() << ", " << cur_cell->get_y_position()  << ", set_size: " << set->get_size() << std::endl;
 			set->remove(cur_cell);
 			continue;
 		}
@@ -53,6 +53,8 @@ void GrowingTreeGenerator::generate() {
 		Cell *next_cell = unvisited_cells[random_idx];
 		gen_maze->add_path(cur_cell, next_cell);
 		set->add(next_cell);
+		//std::cout << "next_cell:" << next_cell->get_x_position() << ", " << next_cell->get_y_position() << std::endl;
+
 	}
 	
 	auto end = std::chrono::system_clock::now();
