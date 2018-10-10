@@ -19,7 +19,6 @@ public:
 	}
 };
 
-
 template <typename ValueType>
 TreeNode<ValueType>::TreeNode(const ValueType *value)
 {
