@@ -47,49 +47,7 @@ Set<ValueType>::~Set()
 
 template <typename ValueType>
 void Set<ValueType>::add(const ValueType *value) {
-	TreeNode<ValueType> *cur_node = root;
-	while (true) {
-		if (cur_node == nullptr) {
-			cur_node = new TreeNode<ValueType>(value);
-			last = cur_node;
-			size += 1;
-			root = cur_node;
-			break;
-		}
-		else {
-			// left
-			if (*value < *(cur_node->value)) {
-				if (cur_node->left == nullptr) {
-					cur_node->left = new TreeNode<ValueType>(value);
-					cur_node->left->prev = last;
-					last = cur_node->left;
-					size += 1;
-					break;
-				}
-				else {
-					cur_node = cur_node->left;
-				}
-			}
-			// right
-			else {
-				if (cur_node->right == nullptr) {
-					cur_node->right = new TreeNode<ValueType>(value);
-					cur_node->right->prev = last;
-					last = cur_node->right;
-					size += 1;
-					break;
-				}
-				else {
-					cur_node = cur_node->right;
-				}
-			}
-		}
-	}
-	if (root == nullptr) {
-		root = cur_node;
-	}
-
-	//add_recursive(*value, root);
+	add_recursive(*value, root);
 	value_map.insert({value, get_size() - 1});
 }
 
