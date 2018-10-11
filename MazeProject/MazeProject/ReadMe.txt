@@ -21,8 +21,11 @@ To remove the compiled files, simply call
 ### Usage
 
 #### Flags
-###### --g seed width height
-Input the random seed ,width and height to generate the maze.
+###### --gr seed width height
+Input the random seed ,width and height to generate the maze, with maze recursive.
+
+###### --gp seed width height
+Input the random seed ,width and height to generate the maze, with maze prime.
 
 ###### --lb binary_file
 Load a binary file that represents a maze.
@@ -30,16 +33,21 @@ Load a binary file that represents a maze.
 ###### --sb binary_file
 Saves a maze to a binary file
 
+###### --pm
+Maze path find
+
 ###### --sv svg_file
 Saves a maze to a SVG
 
 ##### Examples
 
-./maze --g 1314 20 30 --sb output_binary.maze   (generate binary maze file with seed:1314, width:20, height:30 and output binary_file:output_binary.maze)
+./maze --gr 1314 20 30 --sb output_binary.maze   (generate binary maze file with seed:1314, width:20, height:30 and output binary_file:output_binary.maze)
 
 ./maze --lb output_binary.maze --sv output.svg   (load binary file and output to SVG)
 
-./maze --g 22 5 10 --sv output_svg.svg    (generate SVG maze file with seed:22, width:5, height:10 and ouput svg file:output_svg.svg)
+./maze --gp 22 5 10 --sv output_svg.svg    (generate SVG maze file with seed:22, width:5, height:10 and ouput svg file:output_svg.svg)
+
+./maze --gr 22 5 10 --pm --sv output_svg.svg    (generate SVG maze file with seed:22, width:5, height:10, maze routing, and ouput svg file:output_svg.svg)
 
 
 
