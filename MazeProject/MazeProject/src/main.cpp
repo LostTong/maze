@@ -8,7 +8,6 @@
 #include <memory>
 
 #include "maze.h"
-#include "depthfirstsearchsolver.h"
 #include "binaryprocessor.h"
 #include "svg_save.h"
 #include "args_parser.h"
