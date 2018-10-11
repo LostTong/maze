@@ -20,7 +20,7 @@ namespace maze
 		output << "xmlns='http://www.w3.org/2000/svg'>" << "\n";
 
 		output << "<rect width='" << box_width << "' height='" << box_height;
-		output << "' style='fill: black' />" << "\n";
+		output << "' style='fill: white' />" << "\n";
 
 		std::vector<maze::Path *> solved_pathway;
 		std::vector<maze::Path *> unsolved_pathway;

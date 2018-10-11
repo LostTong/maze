@@ -62,7 +62,7 @@ int main(int argc, char * argv[])
 				return 0;
 			}
 			if (binary_processor == nullptr) {
-				binary_processor = std::unique_ptr<maze::BinaryProcessor>();
+				binary_processor = std::unique_ptr<maze::BinaryProcessor>(new maze::BinaryProcessor(parser.save_binary_file));
 			}
 			binary_processor->save_maze_file(maze);
 		}
